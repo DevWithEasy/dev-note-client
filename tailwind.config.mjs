@@ -7,10 +7,10 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
+      fontFamily : {
+        bangla: ['bangla', 'sans-serif'],
+        code: ['monaspace-code', 'sans-serif'],
+      }
     },
   },
   plugins: [],

@@ -27,81 +27,81 @@ export default function MenuBar({editor}) {
         },
         {
             icon: <MdFormatUnderlined/>,
-            lebel : '',
+            lebel : 'Underline',
             onClick: () => editor.chain().focus().toggleStrike().run(),
             disabled: !editor.can().chain().focus().toggleStrike().run(),
             className : editor.isActive('strike') ? 'is-active' : ''
         },
         {
             icon: <IoIosCode/>,
-            lebel : '',
+            lebel : 'Code',
             onClick: () => editor.chain().focus().toggleCode().run(),
             disabled: !editor.can().chain().focus().toggleCode().run(),
             className : editor.isActive('code') ? 'is-active' : ''
         },
         {
             icon: <LuCodeXml />,
-            lebel : '',
+            lebel : 'Code Block',
             onClick: ()=> editor.chain().focus().toggleCodeBlock().run(),
             disabled: false,
             className : editor.isActive('codeBlock') ? 'is-active' : ''
         },
         {
             icon: <RiFormatClear/>,
-            lebel : '',
+            lebel : 'Clear Text Format',
             onClick: () => editor.chain().focus().unsetAllMarks().run(),
             disabled: false,
             className : ''
         },
         {
             icon: <TbClearFormatting/>,
-            lebel : '',
+            lebel : 'Clear Node',
             onClick: () => editor.chain().focus().clearNodes().run(),
             disabled: false,
             className : ''
         },
         {
             icon: <RiParagraph />,
-            lebel : '',
+            lebel : 'Paragraph',
             onClick: () => editor.chain().focus().setParagraph().run(),
             disabled: false,
             className : editor.isActive('paragraph') ? 'is-active' : ''
         },
         {
             icon: <RiH1 />,
-            lebel : '',
+            lebel : 'Heading 1',
             onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
             className : editor.isActive('heading', { level: 1 }) ? 'is-active' : ''
         },
         {
             icon: <RiH2 />,
-            lebel : '',
+            lebel : 'Heading 2',
             onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
             className : editor.isActive('heading', { level: 2 }) ? 'is-active' : ''
         },
         {
             icon: <RiH3 />,
-            lebel : '',
+            lebel : 'Heading 3',
             onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
             className : editor.isActive('heading', { level: 3 }) ? 'is-active' : ''
         },
         {
             icon: <MdOutlineFormatListBulleted />,
-            lebel : '',
+            lebel : 'Unorder List',
             onClick: ()=> editor.chain().focus().toggleBulletList().run(),
             disabled: false,
             className : editor.isActive('bulletList') ? 'is-active' : ''
         },
         {
             icon: <MdOutlineFormatListNumbered />,
-            lebel : '',
+            lebel : 'Order List',
             onClick: ()=> editor.chain().focus().toggleOrderedList().run(),
             disabled: false,
             className : editor.isActive('orderedList') ? 'is-active' : ''
         },
         {
             icon: <TbBlockquote />,
-            lebel : '',
+            lebel : 'Blockquote',
             onClick: ()=> editor.chain().focus().toggleBlockquote().run(),
             disabled: false,
             className : editor.isActive('blockquote') ? 'is-active' : ''
@@ -115,21 +115,21 @@ export default function MenuBar({editor}) {
         },
         {
             icon: <MdSubdirectoryArrowLeft />,
-            lebel : '',
+            lebel : 'New Line',
             onClick: ()=> editor.chain().focus().setHardBreak().run(),
             disabled: false,
             className : ''
         },
         {
             icon: <BiUndo />,
-            lebel : '',
+            lebel : 'Undo',
             onClick: ()=> editor.chain().focus().undo().run(),
             disabled: !editor.can().chain().focus().undo().run(),
             className : ''
         },
         {
             icon: <BiRedo />,
-            lebel : '',
+            lebel : 'Redo',
             onClick: ()=> editor.chain().focus().redo().run(),
             disabled: !editor.can().chain().focus().redo().run(),
             className : ''
@@ -150,9 +150,12 @@ export default function MenuBar({editor}) {
                             key={index}
                             onClick={button.onClick}
                             disabled={button.disabled}
-                            className={`p-1 border rounded ${button.className}`}
+                            className={`relative group p-1 border rounded ${button.className}`}
                         >
                             {button.icon}
+                            {/* <span className="group-hover:inline-block hidden absolute left-0 -bottom-4 px-1 bg-gray-100 text-xs rounded z-10">
+                                {button.lebel}
+                            </span> */}
                         </button>
                     ))
                 }

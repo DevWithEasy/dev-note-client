@@ -1,9 +1,8 @@
 'use client'
-
 import { EditorContent, useEditor } from '@tiptap/react';
+import { useEffect, useState } from 'react';
 import extenstion from './extenstion';
 import MenuBar from './MenuBar';
-import { useState, useEffect, useRef } from 'react';
 
 const RichTextEditor = () => {
   const [content, setContent] = useState('');
@@ -15,7 +14,7 @@ const RichTextEditor = () => {
     },
     editorProps: {
       attributes: {
-        class: 'h-full overflow-y-auto p-2 font-bangla focus:outline-none',
+        class: 'h-full flex-1 overflow-y-auto p-2 font-bangla focus:outline-none',
       },
     },
     content: content,
@@ -35,20 +34,19 @@ const RichTextEditor = () => {
     return () => {
       window.removeEventListener('resize', updateMenuHeight);
     };
-  }, []);
+  });
 
   return (
-    <div className='w-8/12 h-screen mx-auto flex flex-col border'>
+    <div className='w-full md:w-8/12 h-screen mx-auto flex flex-col border'>
       <MenuBar editor={editor} />
       <div
         style={{
           height: `calc(100% - ${menuHeight}px)`
         }}
-        className='flex flex-col'
+        className='flex flex-col overflow-y-auto'
       >
         <EditorContent
           editor={editor}
-          className='flex-1'
         />
       </div>
     </div>

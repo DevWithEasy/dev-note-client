@@ -13,105 +13,123 @@ export default function MenuBar({editor}) {
     const buttons = [
         {
             icon: <MdFormatBold/>,
+            lebel : 'Bold',
             onClick: () => editor.chain().focus().toggleBold().run(),
             disabled: !editor.can().chain().focus().toggleBold().run(),
             className : editor.isActive('bold') ? 'is-active' : ''
         },
         {
             icon: <MdFormatItalic/>,
+            lebel : 'Italic',
             onClick: () => editor.chain().focus().toggleItalic().run(),
             disabled: !editor.can().chain().focus().toggleItalic().run(),
             className : editor.isActive('italic') ? 'is-active' : ''
         },
         {
             icon: <MdFormatUnderlined/>,
+            lebel : '',
             onClick: () => editor.chain().focus().toggleStrike().run(),
             disabled: !editor.can().chain().focus().toggleStrike().run(),
             className : editor.isActive('strike') ? 'is-active' : ''
         },
         {
             icon: <IoIosCode/>,
+            lebel : '',
             onClick: () => editor.chain().focus().toggleCode().run(),
             disabled: !editor.can().chain().focus().toggleCode().run(),
             className : editor.isActive('code') ? 'is-active' : ''
         },
         {
             icon: <LuCodeXml />,
+            lebel : '',
             onClick: ()=> editor.chain().focus().toggleCodeBlock().run(),
             disabled: false,
             className : editor.isActive('codeBlock') ? 'is-active' : ''
         },
         {
             icon: <RiFormatClear/>,
+            lebel : '',
             onClick: () => editor.chain().focus().unsetAllMarks().run(),
             disabled: false,
             className : ''
         },
         {
             icon: <TbClearFormatting/>,
+            lebel : '',
             onClick: () => editor.chain().focus().clearNodes().run(),
             disabled: false,
             className : ''
         },
         {
             icon: <RiParagraph />,
+            lebel : '',
             onClick: () => editor.chain().focus().setParagraph().run(),
             disabled: false,
             className : editor.isActive('paragraph') ? 'is-active' : ''
         },
         {
             icon: <RiH1 />,
+            lebel : '',
             onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
             className : editor.isActive('heading', { level: 1 }) ? 'is-active' : ''
         },
         {
             icon: <RiH2 />,
+            lebel : '',
             onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
             className : editor.isActive('heading', { level: 2 }) ? 'is-active' : ''
         },
         {
             icon: <RiH3 />,
+            lebel : '',
             onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
             className : editor.isActive('heading', { level: 3 }) ? 'is-active' : ''
         },
         {
             icon: <MdOutlineFormatListBulleted />,
+            lebel : '',
             onClick: ()=> editor.chain().focus().toggleBulletList().run(),
             disabled: false,
             className : editor.isActive('bulletList') ? 'is-active' : ''
         },
         {
             icon: <MdOutlineFormatListNumbered />,
+            lebel : '',
             onClick: ()=> editor.chain().focus().toggleOrderedList().run(),
             disabled: false,
             className : editor.isActive('orderedList') ? 'is-active' : ''
         },
         {
             icon: <TbBlockquote />,
+            lebel : '',
             onClick: ()=> editor.chain().focus().toggleBlockquote().run(),
             disabled: false,
             className : editor.isActive('blockquote') ? 'is-active' : ''
         },
         {
             icon: <MdHorizontalRule  />,
+            lebel : '',
             onClick: ()=> editor.chain().focus().setHorizontalRule().run(),
             disabled: false,
             className : ''
         },
         {
             icon: <MdSubdirectoryArrowLeft />,
+            lebel : '',
             onClick: ()=> editor.chain().focus().setHardBreak().run(),
             disabled: false,
             className : ''
         },
         {
             icon: <BiUndo />,
+            lebel : '',
             onClick: ()=> editor.chain().focus().undo().run(),
             disabled: !editor.can().chain().focus().undo().run(),
             className : ''
         },
         {
             icon: <BiRedo />,
+            lebel : '',
             onClick: ()=> editor.chain().focus().redo().run(),
             disabled: !editor.can().chain().focus().redo().run(),
             className : ''

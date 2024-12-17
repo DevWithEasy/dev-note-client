@@ -4,13 +4,37 @@ import { LuCodeXml } from "react-icons/lu";
 import { MdFormatBold, MdFormatItalic, MdFormatUnderlined, MdHorizontalRule, MdOutlineFormatListBulleted, MdOutlineFormatListNumbered, MdSubdirectoryArrowLeft } from "react-icons/md";
 import { RiFormatClear, RiH1, RiH2, RiH3, RiParagraph } from "react-icons/ri";
 import { TbBlockquote, TbClearFormatting } from "react-icons/tb";
-export default function MenuBar({editor}) {
+import { IoPrintOutline } from "react-icons/io5";
+import { FiSave } from "react-icons/fi";
+export default function MenuBar({editor,save}) {
 
     if (!editor) {
         return null
     }
+    
 
     const buttons = [
+        {
+            icon: <FiSave />,
+            lebel : 'Save',
+            onClick: save,
+            disabled: false,
+            className : ''
+        },
+        {
+            icon: <BiUndo />,
+            lebel : 'Undo',
+            onClick: ()=> editor.chain().focus().undo().run(),
+            disabled: !editor.can().chain().focus().undo().run(),
+            className : ''
+        },
+        {
+            icon: <BiRedo />,
+            lebel : 'Redo',
+            onClick: ()=> editor.chain().focus().redo().run(),
+            disabled: !editor.can().chain().focus().redo().run(),
+            className : ''
+        },
         {
             icon: <MdFormatBold/>,
             lebel : 'Bold',
@@ -120,20 +144,13 @@ export default function MenuBar({editor}) {
             disabled: false,
             className : ''
         },
-        {
-            icon: <BiUndo />,
-            lebel : 'Undo',
-            onClick: ()=> editor.chain().focus().undo().run(),
-            disabled: !editor.can().chain().focus().undo().run(),
-            className : ''
-        },
-        {
-            icon: <BiRedo />,
-            lebel : 'Redo',
-            onClick: ()=> editor.chain().focus().redo().run(),
-            disabled: !editor.can().chain().focus().redo().run(),
-            className : ''
-        },
+        // {
+        //     icon: <IoPrintOutline />,
+        //     lebel : 'Print',
+        //     onClick: ()=>printHandler(),
+        //     disabled: false,
+        //     className : ''
+        // },
         // {
         //     icon: <MdColorLens />,
         //     onClick: ()=> editor.chain().focus().setColor('#958DF1').run(),
@@ -150,7 +167,7 @@ export default function MenuBar({editor}) {
                             key={index}
                             onClick={button.onClick}
                             disabled={button.disabled}
-                            className={`relative group p-1 border rounded ${button.className}`}
+                            className={`relative group p-1 border rounded cursor-pointer ${button.className}`}
                         >
                             {button.icon}
                             {/* <span className="group-hover:inline-block hidden absolute left-0 -bottom-4 px-1 bg-gray-100 text-xs rounded z-10">

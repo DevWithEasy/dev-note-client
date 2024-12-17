@@ -1,9 +1,11 @@
-import RichTextEditor from "@/components/Editor/RichTextEditor"
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div>
-      <RichTextEditor/>
+      <Link href='/notes/edit/1'>
+      <p>New Note</p>
+      </Link>
     </div>
   );
 }

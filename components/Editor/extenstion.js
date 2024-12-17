@@ -1,18 +1,19 @@
-import StarterKit from '@tiptap/starter-kit'
-import { Color } from '@tiptap/extension-color'
-import ListItem from '@tiptap/extension-list-item'
-import TextStyle from '@tiptap/extension-text-style'
-import Document from '@tiptap/extension-document'
-import OrderedList from '@tiptap/extension-ordered-list'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
 import Blockquote from '@tiptap/extension-blockquote'
 import BulletList from '@tiptap/extension-bullet-list'
 import CodeBlock from '@tiptap/extension-code-block'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import { Color } from '@tiptap/extension-color'
+import Document from '@tiptap/extension-document'
 import HardBreak from '@tiptap/extension-hard-break'
 import Heading from '@tiptap/extension-heading'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
+import ListItem from '@tiptap/extension-list-item'
+import OrderedList from '@tiptap/extension-ordered-list'
+import Paragraph from '@tiptap/extension-paragraph'
+import Placeholder from '@tiptap/extension-placeholder'
+import Text from '@tiptap/extension-text'
+import TextStyle from '@tiptap/extension-text-style'
+import StarterKit from '@tiptap/starter-kit'
 
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
@@ -30,21 +31,26 @@ lowlight.register('ts', ts)
 
 
 export default [
-    StarterKit,
-    Color,
-    ListItem,
-    TextStyle,
-    Document,
-    OrderedList,
-    Paragraph,
-    Text,
-    Blockquote,
-    BulletList,
-    CodeBlock,
-    CodeBlockLowlight.configure({
-        lowlight,
-      }),
-    HardBreak,
-    Heading,
-    HorizontalRule
+  StarterKit.configure({
+    codeBlock: false
+  }),
+  Color,
+  ListItem,
+  TextStyle,
+  Document,
+  OrderedList,
+  Paragraph,
+  Text,
+  Blockquote,
+  BulletList,
+  CodeBlock,
+  CodeBlockLowlight.configure({
+    lowlight,
+  }),
+  HardBreak,
+  Heading,
+  HorizontalRule,
+  Placeholder.configure({
+    placeholder: 'Type something here...',
+  }),
 ]

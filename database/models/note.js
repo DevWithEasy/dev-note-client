@@ -5,19 +5,24 @@ const mailSchema = mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:'User'
     },
-    content : {
+    title : {
         type : String,
         required :true
     },
-    font :{
+    description :{
         type : String,
         required :true
     },
-    design :{
-        type : Number,
-        required :true
+    icon :{
+        type : String,
+        required :true,
+        default : 'doc'
     },
-    seen : {
+    keywords : {
+        type : [String],
+        default : []
+    },
+    publish : {
         type : Boolean,
         default : false
     }

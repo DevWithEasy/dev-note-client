@@ -12,7 +12,6 @@ export default function EditNoteEditor() {
     const [title, setTitle] = useState('Untitled note')
     const [description, setDescription] = useState('')
     const [menuHeight, setMenuHeight] = useState(96)
-
     const [iconSelectView, setIconSelectView] = useState(false)
 
     const saveHandler = async () => {
@@ -83,6 +82,7 @@ export default function EditNoteEditor() {
             {
                 iconSelectView &&
                 <IconSelectView
+                    icon={icon}
                     setIcon={setIcon}
                     setView={setIconSelectView}
                 />

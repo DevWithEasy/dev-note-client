@@ -6,13 +6,15 @@ import { getAPIRequest } from '@/utils/getAPI';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import icons from '@/utils/icons';
+import Link from 'next/link';
+import CreateBookDialog from '@/components/CreateBookDialog';
 
 export default function Profile() {
   const router = useRouter()
   const { user_id } = router.query
-
-  const [books,setBooks] = useState([])
-  const [notes,setNotes] = useState([])
+  const [mode,setMode] = useState('edit')
+  const [books, setBooks] = useState([])
+  const [notes, setNotes] = useState([])
 
   //get user document collection
   const getDocCollection = async (user_id) => {
@@ -44,11 +46,11 @@ export default function Profile() {
     }
   }
 
-  useEffect(()=>{
-    if(user_id){
+  useEffect(() => {
+    if (user_id) {
       getDocCollection(user_id)
     }
-  },[user_id])
+  }, [user_id])
 
   console.log(notes)
   return (
@@ -58,19 +60,17 @@ export default function Profile() {
       <div
         className='w-2/12'
       >
-        <button>
-          <BiBookAdd /> New Book
-        </button>
+        <CreateBookDialog/>
         <div
           className='flex flex-col'
         >
           {
-            books.map((book)=>(
+            books.map((book) => (
               <div
                 key={book._id}
                 className='border p-2 rounded-md'
               >
-                
+
               </div>
             ))
           }
@@ -79,25 +79,50 @@ export default function Profile() {
       <div
         className='w-10/12'
       >
- 
+
+        <div
+          className='flex justify-between items-center'
+        >
         <h1>Notes</h1>
+        <div
+          className='flex space-x-2'
+        >
+          <button
+            onClick={()=>setMode('view')}
+            className='border p-2 rounded-md'
+          >
+            <span>View</span>
+          </button>
+          <button
+            onClick={()=>setMode('edit')}
+            className='border p-2 rounded-md'
+          >
+            <span>Edit</span>
+          </button>
+        </div>
+        </div>
         <div
           className='grid grid-cols-3 gap-4'
         >
           {
-            notes.map((note)=>(
-              <div
+            notes.map((note) => (
+              <Link
                 key={note._id}
-                className='flex space-x-2 border p-2 rounded-md'
+                href={`/note/${mode}/${note._id}`}
+                target='_blank'
               >
-                <Image
-                  src={icons[note.icon]}
-                  alt={note.icon}
-                  height={20}
-                  width={25}
-                />
-                <h1>{note.title}</h1>
-              </div>
+                <div
+                  className='flex space-x-2 border p-2 rounded-md'
+                >
+                  <Image
+                    src={icons[note.icon]}
+                    alt={note.icon}
+                    height={20}
+                    width={25}
+                  />
+                  <h1>{note.title}</h1>
+                </div>
+              </Link>
             ))
           }
         </div>

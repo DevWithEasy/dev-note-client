@@ -93,7 +93,7 @@
   }
 
   pre {
-    @apply bg-gray-500 text-white rounded-md my-2 p-2 ;
+    @apply bg-gray-100 border text-black rounded-md my-2 p-2 ;
     code {
       background: none;
       font-family: 'monaspace-code';

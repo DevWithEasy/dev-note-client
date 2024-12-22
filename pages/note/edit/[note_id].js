@@ -12,7 +12,6 @@ export default function EditNote() {
     const { note_id } = router.query
 
     const getNote = async (id) => {
-        console.log('calling get')
         try {
             const { data } = await axios.get(getAPIRequest(`/note/${id}`), {
                 headers: {

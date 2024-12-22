@@ -2,23 +2,29 @@
 import extenstion from '@/components/Editor/extenstion';
 import MenuBar from '@/components/Editor/MenuBar';
 import IconSelectView from '@/components/IconSelectView';
-import getAPI from '@/utils/getAPI';
+import {getAPI} from '@/utils/getAPI';
 import icons from '@/utils/icons';
 import { EditorContent, useEditor } from '@tiptap/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { io } from "socket.io-client"
 
-export default function EditNoteEditor({id}) {
-    const [icon, setIcon] = useState('doc')
-    const [title, setTitle] = useState('Untitled note')
-    const [description, setDescription] = useState('')
+export default function EditNoteEditor({id,note}) {
+    const [icon, setIcon] = useState(note.icon)
+    const [title, setTitle] = useState(note.title)
+    const [description, setDescription] = useState(note.description)
     const [menuHeight, setMenuHeight] = useState(96)
     const [iconSelectView, setIconSelectView] = useState(false)
-    const [socket,setSocket] = useState()
+    const [socket,setSocket] = useState(null)
 
-    const saveHandler = async () => {
-        console.log(`${title}\n ${description}`)
+    const titleHandler = (e) => {
+        setTitle(e.target.value)
+        socket.emit('edit_title_api', { id, title : e.target.value })
+    }
+
+    const iconHandler = (e) => {
+        console.log(e.target.value)
+        socket.emit('edit_icon_api', { id, title : e.target.value })
     }
 
     const editor = useEditor({
@@ -90,13 +96,13 @@ export default function EditNoteEditor({id}) {
                     <input
                         type='text'
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)} // Handle title change
+                        onChange={titleHandler}
                         className='p-1 rounded'
                     />
                 </div>
 
             </div>
-            <MenuBar editor={editor} save={saveHandler} />
+            <MenuBar editor={editor} />
             <div
                 style={{
                     height: `calc(100% - ${menuHeight}px)`

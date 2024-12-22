@@ -2,6 +2,7 @@ const link = process.env.NODE_ENV === 'production'
     ? 'https://production.example.com' 
     : 'http://localhost:8080'
 
-const getAPI=()=> link
+export const getAPI=()=> link
 
-export default getAPI
+export const getAPIRequest=(url)=> `${link}/api${url}`
+

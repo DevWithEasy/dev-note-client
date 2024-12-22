@@ -1,14 +1,40 @@
 'use client'
 import EditNoteEditor from '@/components/EditNoteEditor';
+import { getAPIRequest } from '@/utils/getAPI';
+import axios from 'axios';
 import { useRouter } from 'next/router';
+import { Suspense, useEffect, useState } from 'react';
 
 export default function EditNote() {
     const router = useRouter()
-    const {note_id} = router.query
-    // console.log(note_id)
+    const [note, setNote] = useState()
+    const { note_id } = router.query
+
+    const getNote = async (id) => {
+        console.log('calling get')
+        try {
+            const { data } = await axios.get(getAPIRequest(`/note/${id}`), {
+                headers: {
+                    authorization: `Bareer ${localStorage.getItem('dev-note-token')}`
+                }
+            })
+            console.log(data.data)
+            setNote(data.data)
+        } catch (error) {
+            console.log('Get note error:', error)
+        }
+    }
+
+    useEffect(() => {
+        if (note_id) {
+            getNote(note_id)
+        }
+    }, [note_id])
     return (
-        <EditNoteEditor
-            id={note_id}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+            {
+                note && <EditNoteEditor id={note_id} note={note} />
+            }
+        </Suspense>
     );
 }

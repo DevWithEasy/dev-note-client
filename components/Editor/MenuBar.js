@@ -4,9 +4,7 @@ import { LuCodeXml } from "react-icons/lu";
 import { MdFormatBold, MdFormatItalic, MdFormatUnderlined, MdHorizontalRule, MdOutlineFormatListBulleted, MdOutlineFormatListNumbered, MdSubdirectoryArrowLeft } from "react-icons/md";
 import { RiFormatClear, RiH1, RiH2, RiH3, RiParagraph } from "react-icons/ri";
 import { TbBlockquote, TbClearFormatting } from "react-icons/tb";
-import { IoPrintOutline } from "react-icons/io5";
-import { FiSave } from "react-icons/fi";
-export default function MenuBar({editor,save}) {
+export default function MenuBar({editor}) {
 
     if (!editor) {
         return null
@@ -14,13 +12,6 @@ export default function MenuBar({editor,save}) {
     
 
     const buttons = [
-        {
-            icon: <FiSave />,
-            lebel : 'Save',
-            onClick: save,
-            disabled: false,
-            className : ''
-        },
         {
             icon: <BiUndo />,
             lebel : 'Undo',

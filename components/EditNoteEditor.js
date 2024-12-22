@@ -2,6 +2,7 @@
 import extenstion from '@/components/Editor/extenstion';
 import MenuBar from '@/components/Editor/MenuBar';
 import IconSelectView from '@/components/IconSelectView';
+import useBookStore from '@/store/bookStore';
 import { getAPI } from '@/utils/getAPI';
 import icons from '@/utils/icons';
 import { EditorContent, useEditor } from '@tiptap/react';
@@ -9,7 +10,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { io } from "socket.io-client"
 
-export default function EditNoteEditor({ id, note }) {
+export default function EditNoteEditor({ id, note,setNote }) {
     const [icon, setIcon] = useState(note.icon)
     const [title, setTitle] = useState(note.title)
     const [description, setDescription] = useState(note.description)
@@ -19,6 +20,7 @@ export default function EditNoteEditor({ id, note }) {
 
     const titleHandler = (e) => {
         setTitle(e.target.value)
+        setNote({title : e.target.value,setDescription})
         socket.emit('edit_title_api', { id, title: e.target.value })
     }
 

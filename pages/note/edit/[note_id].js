@@ -35,7 +35,7 @@ export default function EditNote() {
                 <title>{note?.title ? note.title : 'Loading...'}</title>
             </Head>
             {
-                note && <EditNoteEditor id={note_id} note={note} />
+                note && <EditNoteEditor id={note_id} note={note} setNote={setNote}/>
             }
         </Suspense>
     );

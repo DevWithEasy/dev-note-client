@@ -1,4 +1,5 @@
 const icons = {
+    book: '/image/book.png',
     doc: '/image/docs.png',
     html: '/image/html.png',
     css: '/image/css.png',

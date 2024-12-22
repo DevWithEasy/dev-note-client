@@ -4,10 +4,12 @@ import { getAPIRequest } from '@/utils/getAPI'
 import useUserStore from '@/store/userStore'
 import { toast } from 'sonner'
 import { useRouter } from 'next/router'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 export default function Signin() {
   const router = useRouter()
-  const {loged} = useUserStore()
+  const { loged } = useUserStore()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -26,26 +28,32 @@ export default function Signin() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div
+      className='h-screen flex justify-center items-center'
+    >
+      <form onSubmit={handleSubmit}
+        className='space-y-2'
+      >
         <h1>Sign In</h1>
-        <div>
-          <input
-            type="email"
+        <div
+          className='flex flex-col'
+        >
+          <Input
+        type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
+        />
         </div>
         <div>
-          <input
+          <Input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Sign In</button>
+        <Button type="submit">Sign In</Button>
       </form>
     </div>
   )

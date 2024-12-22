@@ -7,14 +7,15 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import icons from '@/utils/icons';
 import Link from 'next/link';
-import CreateBookDialog from '@/components/CreateBookDialog';
+import CreateBookDailog from '@/components/CreateBookDailog';
+import { FilePenLine, Rows3 } from 'lucide-react';
+import useBookStore from '@/store/bookStore';
 
 export default function Profile() {
   const router = useRouter()
   const { user_id } = router.query
   const [mode,setMode] = useState('edit')
-  const [books, setBooks] = useState([])
-  const [notes, setNotes] = useState([])
+  const {books,notes,setCollection,addNote} = useBookStore()
 
   //get user document collection
   const getDocCollection = async (user_id) => {
@@ -24,8 +25,7 @@ export default function Profile() {
           authorization: `Bareer ${localStorage.getItem('dev-note-token')}`
         }
       })
-      setBooks(data.data.books)
-      setNotes(data.data.notes)
+      setCollection(data.data)
     } catch (error) {
       console.log('Create new document error:', error)
     }
@@ -39,8 +39,9 @@ export default function Profile() {
           authorization: `Bareer ${localStorage.getItem('dev-note-token')}`
         }
       })
-      router.push(`/note/edit/${data.data._id}`)
-      console.log(data)
+      // router.push(`/note/edit/${data.data._id}`)
+      addNote(data.data)
+      window.open(`/note/edit/${data.data._id}`, '_blank')
     } catch (error) {
       console.log('Create new document error:', error)
     }
@@ -58,26 +59,32 @@ export default function Profile() {
       className='font-bangla flex justify-between'
     >
       <div
-        className='w-2/12'
+        className='w-4/12 md:w-2/12 p-2 space-y-2'
       >
-        <CreateBookDialog/>
+        <CreateBookDailog/>
         <div
-          className='flex flex-col'
+          className='flex flex-col space-y-2'
         >
           {
             books.map((book) => (
               <div
                 key={book._id}
-                className='border p-2 rounded-md'
+                className='flex items-center space-x-2 border p-2 rounded-md cursor-pointer hover:bg-gray-50'
               >
-
+                  <Image
+                    src={icons[book.icon]}
+                    alt={book.icon}
+                    height={16}
+                    width={16}
+                  />
+                  <p>{book.name}</p>
               </div>
             ))
           }
         </div>
       </div>
       <div
-        className='w-10/12'
+        className='w-8/12 md:w-10/12 p-2 space-y-2'
       >
 
         <div
@@ -85,24 +92,24 @@ export default function Profile() {
         >
         <h1>Notes</h1>
         <div
-          className='flex space-x-2'
+          className='flex border'
         >
           <button
             onClick={()=>setMode('view')}
-            className='border p-2 rounded-md'
+            className={`p-1 ${mode==='view' ? 'bg-blue-50 text-blue-500' : ''}`}
           >
-            <span>View</span>
+            <Rows3 size={20}/>
           </button>
           <button
             onClick={()=>setMode('edit')}
-            className='border p-2 rounded-md'
+            className={`p-1 ${mode==='edit' ? 'bg-blue-50 text-blue-500' : ''}`}
           >
-            <span>Edit</span>
+            <FilePenLine size={20}/>
           </button>
         </div>
         </div>
         <div
-          className='grid grid-cols-3 gap-4'
+          className='grid grid-cols-1 gap-1 md:grid-cols-3 md:gap-4'
         >
           {
             notes.map((note) => (
@@ -120,7 +127,7 @@ export default function Profile() {
                     height={20}
                     width={25}
                   />
-                  <h1>{note.title}</h1>
+                  <p>{note.title}</p>
                 </div>
               </Link>
             ))

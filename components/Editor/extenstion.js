@@ -14,6 +14,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import Text from '@tiptap/extension-text'
 import TextStyle from '@tiptap/extension-text-style'
 import StarterKit from '@tiptap/starter-kit'
+import TextAlign from '@tiptap/extension-text-align'
 
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
@@ -33,6 +34,9 @@ lowlight.register('ts', ts)
 export default [
   StarterKit.configure({
     codeBlock: false
+  }),
+  TextAlign.configure({
+    types: ['heading', 'paragraph'],
   }),
   Color,
   ListItem,

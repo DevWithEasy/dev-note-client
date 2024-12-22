@@ -2,36 +2,37 @@
 import extenstion from '@/components/Editor/extenstion';
 import MenuBar from '@/components/Editor/MenuBar';
 import IconSelectView from '@/components/IconSelectView';
-import {getAPI} from '@/utils/getAPI';
+import { getAPI } from '@/utils/getAPI';
 import icons from '@/utils/icons';
 import { EditorContent, useEditor } from '@tiptap/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { io } from "socket.io-client"
 
-export default function EditNoteEditor({id,note}) {
+export default function EditNoteEditor({ id, note }) {
     const [icon, setIcon] = useState(note.icon)
     const [title, setTitle] = useState(note.title)
     const [description, setDescription] = useState(note.description)
     const [menuHeight, setMenuHeight] = useState(96)
     const [iconSelectView, setIconSelectView] = useState(false)
-    const [socket,setSocket] = useState(null)
+    const [socket, setSocket] = useState(null)
 
     const titleHandler = (e) => {
         setTitle(e.target.value)
-        socket.emit('edit_title_api', { id, title : e.target.value })
+        socket.emit('edit_title_api', { id, title: e.target.value })
     }
 
-    const iconHandler = (e) => {
-        console.log(e.target.value)
-        socket.emit('edit_icon_api', { id, title : e.target.value })
+    const iconHandler = (icon) => {
+        setIcon(icon)
+        setIconSelectView(false)
+        socket.emit('edit_icon_api', { id, icon: icon })
     }
 
     const editor = useEditor({
         extensions: extenstion,
         onUpdate: ({ editor }) => {
             setDescription(editor.getHTML())
-            socket.emit('edit_note', { id, description : editor.getHTML() })
+            socket.emit('edit_note', { id, description: editor.getHTML() })
         },
         editorProps: {
             attributes: {
@@ -45,15 +46,24 @@ export default function EditNoteEditor({id,note}) {
         // Initialize socket connection
         const socketInstance = io(getAPI());
         setSocket(socketInstance);
-        
+
         // Join edit room
         socketInstance.emit('join_edit', { id });
+
+        // Listen for edit_note_client event
+        socketInstance.on('edit_title_client', (data) => {
+            setTitle(data.title)
+        })
+
+        socketInstance.on('edit_icon_client', (data) => {
+            setIcon(data.icon)
+        })
 
         // Listen for edit_note_client event
         socketInstance.on('edit_note_client', (data) => {
             setDescription(data.description);
             editor?.commands.setContent(data.description);
-        });
+        })
 
         // Cleanup on unmount
         return () => {
@@ -97,7 +107,7 @@ export default function EditNoteEditor({id,note}) {
                         type='text'
                         value={title}
                         onChange={titleHandler}
-                        className='p-1 rounded'
+                        className='p-1 rounded font-bangla border border-white focus:outline-none focus:border-gray-300'
                     />
                 </div>
 
@@ -115,8 +125,7 @@ export default function EditNoteEditor({id,note}) {
                 iconSelectView &&
                 <IconSelectView
                     icon={icon}
-                    setIcon={setIcon}
-                    setView={setIconSelectView}
+                    iconHandler={iconHandler}
                 />
             }
         </div>

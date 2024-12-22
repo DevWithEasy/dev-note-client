@@ -1,7 +1,7 @@
 import { BiRedo, BiUndo } from "react-icons/bi";
 import { IoIosCode } from "react-icons/io";
 import { LuCodeXml } from "react-icons/lu";
-import { MdFormatBold, MdFormatItalic, MdFormatUnderlined, MdHorizontalRule, MdOutlineFormatListBulleted, MdOutlineFormatListNumbered, MdSubdirectoryArrowLeft } from "react-icons/md";
+import { MdFormatBold, MdFormatItalic, MdFormatUnderlined, MdHorizontalRule, MdOutlineFormatListBulleted, MdOutlineFormatListNumbered, MdSubdirectoryArrowLeft, MdOutlineFormatAlignJustify, MdOutlineFormatAlignLeft,MdOutlineFormatAlignRight,MdOutlineFormatAlignCenter  } from "react-icons/md";
 import { RiFormatClear, RiH1, RiH2, RiH3, RiParagraph } from "react-icons/ri";
 import { TbBlockquote, TbClearFormatting } from "react-icons/tb";
 export default function MenuBar({editor}) {
@@ -120,6 +120,34 @@ export default function MenuBar({editor}) {
             onClick: ()=> editor.chain().focus().toggleBlockquote().run(),
             disabled: false,
             className : editor.isActive('blockquote') ? 'is-active' : ''
+        },
+        {
+            icon: <MdOutlineFormatAlignLeft/>,
+            lebel : 'Left Align',
+            onClick: ()=> editor.chain().focus().setTextAlign('left').run(),
+            disabled: false,
+            className : editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''
+        },
+        {
+            icon: <MdOutlineFormatAlignCenter/>,
+            lebel : 'Center Align',
+            onClick: ()=> editor.chain().focus().setTextAlign('center').run(),
+            disabled: false,
+            className : editor.isActive({ textAlign: 'center' }) ? 'is-active' : ''
+        },
+        {
+            icon: < MdOutlineFormatAlignRight/>,
+            lebel : 'Right Align',
+            onClick: ()=> editor.chain().focus().setTextAlign('right').run(),
+            disabled: false,
+            className : editor.isActive({ textAlign: 'right' }) ? 'is-active' : ''
+        },
+        {
+            icon: < MdOutlineFormatAlignJustify/>,
+            lebel : 'Justify Align',
+            onClick: ()=> editor.chain().focus().setTextAlign('justify').run(),
+            disabled: false,
+            className : editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''
         },
         {
             icon: <MdHorizontalRule  />,

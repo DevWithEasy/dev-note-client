@@ -2,6 +2,7 @@
 import EditNoteEditor from '@/components/EditNoteEditor';
 import { getAPIRequest } from '@/utils/getAPI';
 import axios from 'axios';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Suspense, useEffect, useState } from 'react';
 
@@ -18,7 +19,6 @@ export default function EditNote() {
                     authorization: `Bareer ${localStorage.getItem('dev-note-token')}`
                 }
             })
-            console.log(data.data)
             setNote(data.data)
         } catch (error) {
             console.log('Get note error:', error)
@@ -32,6 +32,9 @@ export default function EditNote() {
     }, [note_id])
     return (
         <Suspense fallback={<div>Loading...</div>}>
+            <Head>
+                <title>{note?.title ? note.title : 'Loading...'}</title>
+            </Head>
             {
                 note && <EditNoteEditor id={note_id} note={note} />
             }

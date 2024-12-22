@@ -15,7 +15,7 @@
 }
 
 .is-active{
-  @apply bg-black text-white;
+  @apply bg-gray-100;
 }
 .tiptap p.is-editor-empty:first-child::before {
   color: #adb5bd;
@@ -110,4 +110,10 @@
   hr {
     @apply border-b my-[2rem];
   }
+}
+
+@layer base {
+  :root { 
+    --radius: 0.5rem; 
+  } 
 }

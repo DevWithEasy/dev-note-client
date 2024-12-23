@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/router'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export default function Signin() {
   const router = useRouter()
@@ -31,30 +32,39 @@ export default function Signin() {
     <div
       className='h-screen flex justify-center items-center'
     >
-      <form onSubmit={handleSubmit}
-        className='space-y-2'
+      <div
+        className='md:w-4/12 p-4 space-y-2 border rounded-lg shadow-md'
       >
-        <h1>Sign In</h1>
-        <div
-          className='flex flex-col'
+        <form onSubmit={handleSubmit}
+          className='space-y-2'
         >
-          <Input
-        type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-        />
-        </div>
+          <h1>Sign In</h1>
+          <div
+            className='flex flex-col'
+          >
+            <Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <Button type="submit">Sign In</Button>
+        </form>
         <div>
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          Create an account? <Link href='/user/signup'>
+                <b className='text-blue-500'>Signup</b>
+          </Link>
         </div>
-        <Button type="submit">Sign In</Button>
-      </form>
+      </div>
     </div>
   )
 }

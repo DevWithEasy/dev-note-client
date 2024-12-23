@@ -34,7 +34,7 @@ const bookStore = (set)=>({
             notes : state.notes.map((n)=>n._id === note._id? note : n)
         }))
     },
-    deleteNote : (id) =>{
+    setDeleteNote : (id) =>{
         set((state)=>({
             notes : state.notes.filter((n)=>n._id!==id)
         }))

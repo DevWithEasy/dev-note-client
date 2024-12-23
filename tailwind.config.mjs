@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
   	extend: {
+		backgroundImage : {
+			'paper' : "url('/image/paper_bg.jpg')",
+		  },
   		fontFamily: {
   			bangla: [
   				'bangla',

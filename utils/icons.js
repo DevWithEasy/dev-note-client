@@ -21,5 +21,6 @@ const icons = {
     mongodb: '/image/mongodb.png',
     postgress : '/image/postgress.png',
     excel: '/image/excel.png',
+    note: '/image/note.png',
 }
 export default icons;

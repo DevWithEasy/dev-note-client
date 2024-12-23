@@ -75,31 +75,31 @@ export default function MenuBar({editor}) {
             disabled: false,
             className : ''
         },
-        {
-            icon: <RiParagraph />,
-            lebel : 'Paragraph',
-            onClick: () => editor.chain().focus().setParagraph().run(),
-            disabled: false,
-            className : editor.isActive('paragraph') ? 'is-active' : ''
-        },
-        {
-            icon: <RiH1 />,
-            lebel : 'Heading 1',
-            onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-            className : editor.isActive('heading', { level: 1 }) ? 'is-active' : ''
-        },
-        {
-            icon: <RiH2 />,
-            lebel : 'Heading 2',
-            onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-            className : editor.isActive('heading', { level: 2 }) ? 'is-active' : ''
-        },
-        {
-            icon: <RiH3 />,
-            lebel : 'Heading 3',
-            onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
-            className : editor.isActive('heading', { level: 3 }) ? 'is-active' : ''
-        },
+        // {
+        //     icon: <RiParagraph />,
+        //     lebel : 'Paragraph',
+        //     onClick: () => editor.chain().focus().setParagraph().run(),
+        //     disabled: false,
+        //     className : editor.isActive('paragraph') ? 'is-active' : ''
+        // },
+        // {
+        //     icon: <RiH1 />,
+        //     lebel : 'Heading 1',
+        //     onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+        //     className : editor.isActive('heading', { level: 1 }) ? 'is-active' : ''
+        // },
+        // {
+        //     icon: <RiH2 />,
+        //     lebel : 'Heading 2',
+        //     onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+        //     className : editor.isActive('heading', { level: 2 }) ? 'is-active' : ''
+        // },
+        // {
+        //     icon: <RiH3 />,
+        //     lebel : 'Heading 3',
+        //     onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+        //     className : editor.isActive('heading', { level: 3 }) ? 'is-active' : ''
+        // },
         {
             icon: <MdOutlineFormatListBulleted />,
             lebel : 'Unorder List',
@@ -149,13 +149,13 @@ export default function MenuBar({editor}) {
             disabled: false,
             className : editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''
         },
-        {
-            icon: <MdHorizontalRule  />,
-            lebel : '',
-            onClick: ()=> editor.chain().focus().setHorizontalRule().run(),
-            disabled: false,
-            className : ''
-        },
+        // {
+        //     icon: <MdHorizontalRule  />,
+        //     lebel : '',
+        //     onClick: ()=> editor.chain().focus().setHorizontalRule().run(),
+        //     disabled: false,
+        //     className : ''
+        // },
         {
             icon: <MdSubdirectoryArrowLeft />,
             lebel : 'New Line',
@@ -186,7 +186,7 @@ export default function MenuBar({editor}) {
                             key={index}
                             onClick={button.onClick}
                             disabled={button.disabled}
-                            className={`relative group p-1 border rounded cursor-pointer ${button.className}`}
+                            className={`relative group p-1 border border-gray-100 rounded cursor-pointer ${button.className}`}
                         >
                             {button.icon}
                             {/* <span className="group-hover:inline-block hidden absolute left-0 -bottom-4 px-1 bg-gray-100 text-xs rounded z-10">

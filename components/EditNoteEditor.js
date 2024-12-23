@@ -9,6 +9,7 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { io } from "socket.io-client"
+import { Input } from './ui/input';
 
 export default function EditNoteEditor({ id, note,setNote }) {
     const [icon, setIcon] = useState(note.icon)
@@ -105,11 +106,11 @@ export default function EditNoteEditor({ id, note,setNote }) {
                     />
                 </div>
                 <div>
-                    <input
+                    <Input
                         type='text'
                         value={title}
                         onChange={titleHandler}
-                        className='p-1 rounded font-bangla border border-white focus:outline-none focus:border-gray-300'
+                        className='border-white focus:outline-none focus:border-gray-300'
                     />
                 </div>
 

@@ -14,7 +14,7 @@ const bookStore = (set)=>({
             books : [...state.books,book]
         }))
     },
-    updateBook : (book) =>{
+    setUpdateBook : (book) =>{
         set((state)=>({
             books : state.books.map((b)=>b._id === book._id? book : b)
         }))

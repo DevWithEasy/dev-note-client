@@ -7,20 +7,27 @@ import Image from 'next/image';
 import icons from '@/utils/icons';
 import Link from 'next/link';
 import CreateBookDailog from '@/components/book/CreateBookDailog';
-import { FilePenLine, Rows3 } from 'lucide-react';
+import { FilePenLine, Loader, Rows3 } from 'lucide-react';
 import useBookStore from '@/store/bookStore';
 import NoteAction from '@/components/note/NoteAction';
+import useUserStore from '@/store/userStore';
+import { Input } from '@/components/ui/input';
+import NavigationArea from '@/components/user/NavigationArea';
+import ContentArea from '@/components/user/ContentArea';
 
 export default function Profile() {
   const router = useRouter()
   const { user_id } = router.query
   const [mode, setMode] = useState('edit')
-  const { books, notes, setCollection, addNote,addBookNotes } = useBookStore()
+  const { books, notes, setCollection, addNote, addBookNotes } = useBookStore()
+  const { user } = useUserStore()
   const [selectBook, setSelectBook] = useState({})
+  const [loading, setLoading] = useState(false)
 
   //get user document collection
   const getDocCollection = async (user_id) => {
     setSelectBook({})
+    setLoading(true)
     try {
       const { data } = await axios.get(getAPIRequest(`/user/${user_id}`), {
         headers: {
@@ -28,13 +35,16 @@ export default function Profile() {
         }
       })
       setCollection(data.data)
+      setLoading(false)
     } catch (error) {
       console.log('Create new document error:', error)
+      setLoading(false)
     }
   }
 
   const getBookNotes = async (book) => {
     setSelectBook(book)
+    setLoading(true)
     try {
       const { data } = await axios.get(getAPIRequest(`/book/notes/${book._id}`), {
         headers: {
@@ -42,8 +52,10 @@ export default function Profile() {
         }
       })
       addBookNotes(data.data)
+      setLoading(false)
     } catch (error) {
       console.log('Create new document error:', error)
+      setLoading(false)
     }
   }
 
@@ -73,100 +85,15 @@ export default function Profile() {
     <div
       className='h-screen flex justify-between'
     >
-      <div
-        className='h-screen w-4/12 md:w-2/12 p-2 space-y-2 overflow-y-auto border-r'
-      >
-        <CreateBookDailog />
-        <div
-          className='flex flex-col space-y-2'
-        >
-          <div
-                className={`flex items-center space-x-2 border p-2 rounded-md cursor-pointer hover:bg-gray-50 ${!selectBook._id ? 'bg-gray-50' : ''}`}
-                onClick={() => getDocCollection(user_id)}
-              >
-                <Image
-                  src={icons['note']}
-                  alt='book'
-                  height={16}
-                  width={16}
-                />
-                <p className='truncate'>My Notes</p>
-              </div>
-          {
-            books.length > 0 && books.map((book) => (
-              <div
-                key={book._id}
-                className={`flex items-center space-x-2 border p-2 rounded-md cursor-pointer hover:bg-gray-50 ${book._id === selectBook._id ? 'bg-gray-50' : ''}`}
-                onClick={() => getBookNotes(book)}
-              >
-                <Image
-                  src={icons[book.icon]}
-                  alt={book.icon}
-                  height={16}
-                  width={16}
-                />
-                <p className='truncate'>{book.name}</p>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-      <div
-        className='h-screen w-8/12 md:w-10/12 p-2 space-y-2 overflow-y-auto'
-      >
-
-        <div
-          className='flex justify-between items-center'
-        >
-          <h1>Notes</h1>
-          <div
-            className='flex border'
-          >
-            <button
-              onClick={() => setMode('view')}
-              className={`p-1 ${mode === 'view' ? 'bg-blue-50 text-blue-500' : ''}`}
-            >
-              <Rows3 size={20} />
-            </button>
-            <button
-              onClick={() => setMode('edit')}
-              className={`p-1 ${mode === 'edit' ? 'bg-blue-50 text-blue-500' : ''}`}
-            >
-              <FilePenLine size={20} />
-            </button>
-          </div>
-        </div>
-        <div
-          className='grid grid-cols-1 gap-1 md:grid-cols-3 md:gap-4'
-        >
-          {
-            notes.length > 0 && notes.map((note) => (
-              <div
-                key={note._id}
-                className='flex border p-2 rounded-md justify-between'
-              >
-                <Link
-                  href={`/note/${mode}/${note._id}`}
-                  target='_blank'
-                >
-                  <div
-                    className='flex space-x-2'
-                  >
-                    <Image
-                      src={icons[note.icon]}
-                      alt={note.icon}
-                      height={20}
-                      width={25}
-                    />
-                    <p className='truncate'>{note.title}</p>
-                  </div>
-                </Link>
-                <NoteAction note={note} />
-              </div>
-            ))
-          }
-        </div>
-      </div>
+      <NavigationArea
+        selectBook={selectBook}
+        getBookNotes={getBookNotes}
+        getDocCollection={getDocCollection}
+      />
+      <ContentArea
+        loading={loading}
+        selectBook={selectBook}
+      />
       {/* Floating Button */}
       <button
         onClick={createNewDocument}

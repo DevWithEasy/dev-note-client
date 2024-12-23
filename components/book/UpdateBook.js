@@ -13,23 +13,25 @@ import axios from "axios";
 import { CircleFadingPlus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { SelectBookIcon } from "./SelectBookIcon";
 
-export default function CreateBookDialog() {
-    const [name, setName] = useState('')
+export default function UpdateBook({book}) {
+    const [icon, setIcon] = useState(book?.icon)
+    const [name, setName] = useState(book?.name)
     const [open, setOpen] = useState(false)
-    const {addBook} = useBookStore()
+    const {setUpdateBook} = useBookStore()
 
-    const createNewBook = async (e) => {
+    const updateBook = async (e) => {
         e.preventDefault()
         if (!name) return toast.error('Please input name')
         try {
-            const { data } = await axios.post(getAPIRequest('/book/create'), {name}, {
+            const { data } = await axios.put(getAPIRequest(`/book/${book._id}`), {name,icon}, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('dev-note-token')}`
                 }
             });
-            addBook(data.data)
-            toast.success('Book created successfully!')
+            setUpdateBook(data.data)
+            toast.success('Book updated successfully!')
             setOpen(false)
         } catch (error) {
             console.log('Create new book error:', error)
@@ -40,21 +42,22 @@ export default function CreateBookDialog() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button 
-                    variant="outline" 
+                <button 
                     onClick={() => setOpen(true)} 
                     className='w-full flex items-center justify-start'
                 >
-                    <CircleFadingPlus />
-                    <span>New Book</span>
-                </Button>
+                    <span>{book?.name}</span>
+                </button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle className='text-left'>Create New Book</DialogTitle>
+                    <DialogTitle className='text-left'>Update New Book</DialogTitle>
                 </DialogHeader>
-                <form onSubmit={createNewBook} className="grid gap-4 py-4">
-                    <div>
+                <form onSubmit={updateBook} className="grid gap-4 py-4">
+                    <div
+                        className="flex items-center space-x-1"
+                    >
+                        <SelectBookIcon icon={icon} setIcon={setIcon}/>
                         <Input
                             id="name"
                             value={name}

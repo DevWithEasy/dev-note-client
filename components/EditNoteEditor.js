@@ -23,7 +23,7 @@ export default function EditNoteEditor({ id, note, setNote }) {
 
     const titleHandler = (e) => {
         setTitle(e.target.value)
-        setNote({ title: e.target.value, setDescription })
+        setNote({ ...note,title: e.target.value, description })
         socket.emit('edit_title_api', { id, title: e.target.value })
     }
 

@@ -5,7 +5,7 @@ import axios from 'axios';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 
 export default function ViewNote() {
     const router = useRouter()
@@ -34,13 +34,13 @@ export default function ViewNote() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <div
-                className='h-screen overflow-y-auto bg-gray-50'
+                className='h-screen bg-gray-50'
             >
                 <Head>
                     <title>{note?.title ? note?.title : 'Loading...'}</title>
                 </Head>
                 <div
-                    className='h-screen md:w-8/12 mx-auto bg-white'
+                    className='h-screen md:w-8/12 mx-auto bg-white overflow-y-auto'
                 >
                     <div
                         className='px-4 py-2 border-b-2 space-y-2 print:px-0'

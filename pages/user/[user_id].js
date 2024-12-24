@@ -11,7 +11,7 @@ import { TiDocumentAdd } from "react-icons/ti";
 export default function Profile() {
   const router = useRouter()
   const { user_id } = router.query
-  const { setCollection, addBookNotes } = useBookStore()
+  const { setCollection, addBookNotes,addNote } = useBookStore()
   const [selectBook, setSelectBook] = useState({})
   const [loading, setLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -60,9 +60,8 @@ export default function Profile() {
           authorization: `Bareer ${localStorage.getItem('dev-note-token')}`
         }
       })
-      console.log(data)
-      // addNote(data.data)
-      // window.open(`/note/edit/${data.data._id}`, '_blank')
+      addNote(data.data)
+      window.open(`/note/edit/${data.data._id}`, '_blank')
     } catch (error) {
       console.log('Create new document error:', error)
     }
@@ -91,6 +90,7 @@ export default function Profile() {
       <ContentArea
         loading={loading}
         selectBook={selectBook}
+        setSelectBook={setSelectBook}
       >
         <div
           className='block md:hidden'

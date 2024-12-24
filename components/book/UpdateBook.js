@@ -10,12 +10,11 @@ import { Input } from "@/components/ui/input";
 import useBookStore from "@/store/bookStore";
 import { getAPIRequest } from "@/utils/getAPI";
 import axios from "axios";
-import { CircleFadingPlus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { SelectBookIcon } from "./SelectBookIcon";
 
-export default function UpdateBook({book}) {
+export default function UpdateBook({book,setBook}) {
     const [icon, setIcon] = useState(book?.icon)
     const [name, setName] = useState(book?.name)
     const [open, setOpen] = useState(false)
@@ -30,6 +29,7 @@ export default function UpdateBook({book}) {
                     authorization: `Bearer ${localStorage.getItem('dev-note-token')}`
                 }
             });
+            setBook(data.data)
             setUpdateBook(data.data)
             toast.success('Book updated successfully!')
             setOpen(false)

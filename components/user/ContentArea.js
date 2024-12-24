@@ -7,7 +7,7 @@ import NoteAction from '../note/NoteAction'
 import icons from '@/utils/icons'
 import UpdateBook from '../book/UpdateBook'
 
-export default function ContentArea({loading,selectBook,children}) {
+export default function ContentArea({loading,selectBook,setSelectBook,children}) {
     const [mode, setMode] = useState('edit')
     const { notes} = useBookStore()
   return (
@@ -25,7 +25,7 @@ export default function ContentArea({loading,selectBook,children}) {
               !selectBook._id ?
                 <h1>My Notes</h1>
                 :
-                <UpdateBook book={selectBook}/>
+                <UpdateBook book={selectBook} setBook={setSelectBook}/>
             }
           </div>
           <div
@@ -63,27 +63,27 @@ export default function ContentArea({loading,selectBook,children}) {
                 {
                   notes.length > 0 && notes.map((note) => (
                     <div
-                      key={note._id}
-                      className='flex border p-2 text-sm rounded-md justify-between'
-                    >
-                      <Link
-                        href={`/note/${mode}/${note._id}`}
-                        target='_blank'
-                      >
-                        <div
-                          className='flex space-x-2'
-                        >
-                          <Image
-                            src={icons[note.icon]}
-                            alt={note.icon}
-                            height={20}
-                            width={20}
-                          />
-                          <p className='truncate'>{note.title}</p>
-                        </div>
-                      </Link>
-                      <NoteAction note={note} />
-                    </div>
+  key={note._id}
+  className='flex border p-2 text-sm rounded-md justify-between'
+>
+  <Link
+    href={`/note/${mode}/${note._id}`}
+    target='_blank'
+    className='flex items-center space-x-2 flex-grow'
+  >
+    <Image
+      src={icons[note.icon]}
+      alt={note.icon}
+      height={20}
+      width={20}
+    />
+    <p className='truncate max-w-xs'> {/* Added max-w-xs for width control */}
+      {note.title}
+    </p>
+  </Link>
+  <NoteAction note={note} />
+</div>
+
                   ))
                 }
               </div>

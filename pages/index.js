@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import { getAPIRequest } from "@/utils/getAPI";
 import icons from "@/utils/icons";
 import axios from "axios";
+import { CalendarDays, CircleUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -35,8 +36,34 @@ export default function Home({ notes, keywords }) {
                       width={30}
                     />
                   </div>
-                  <div>
-                    <h3 className="font-semibold">{note.title}</h3>
+                  <div
+                    className="w-full space-y-1"
+                  >
+                    <h3 className="font-medium">{note.title}</h3>
+                    <div
+                    className="flex space-x-2 pb-1 text-gray-400"
+                    >
+                      <div
+                        className="flex items-center space-x-1"
+                      >
+                        <CircleUserRound size={16}/>
+                        <span
+                          className="text-xs"
+                        >
+                          {note?.user?.name}
+                        </span>
+                      </div>
+                      <div
+                        className="flex items-center space-x-1"
+                      >
+                        <CalendarDays size={14}/>
+                                              <span
+                        className="text-xs"
+                      >
+                        {new Date(note?.createdAt).toDateString()}
+                      </span>
+                      </div>
+                    </div>
                     <div
                       className="flex flex-wrap space-x-1"
                     >
@@ -44,7 +71,7 @@ export default function Home({ notes, keywords }) {
                         note.keywords.map(key => (
                           <span
                             key={key}
-                            className="px-2 py-1 text-xs bg-gray-100 rounded-full"
+                            className="px-2 py-0.5 text-xs bg-gray-100 text-gray-500 rounded-full"
                           >
                             {key}
                           </span>

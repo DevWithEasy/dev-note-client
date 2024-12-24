@@ -27,6 +27,13 @@ export default function MenuBar({editor}) {
             className : ''
         },
         {
+            icon: <RiParagraph />,
+            lebel : 'Paragraph',
+            onClick: () => editor.chain().focus().setParagraph().run(),
+            disabled: false,
+            className : editor.isActive('paragraph') ? 'is-active' : ''
+        },
+        {
             icon: <MdFormatBold/>,
             lebel : 'Bold',
             onClick: () => editor.chain().focus().toggleBold().run(),
@@ -75,13 +82,6 @@ export default function MenuBar({editor}) {
             disabled: false,
             className : ''
         },
-        // {
-        //     icon: <RiParagraph />,
-        //     lebel : 'Paragraph',
-        //     onClick: () => editor.chain().focus().setParagraph().run(),
-        //     disabled: false,
-        //     className : editor.isActive('paragraph') ? 'is-active' : ''
-        // },
         // {
         //     icon: <RiH1 />,
         //     lebel : 'Heading 1',

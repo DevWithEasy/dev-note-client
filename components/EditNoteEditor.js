@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { io } from "socket.io-client"
 import { Input } from './ui/input';
 import PublishNote from './note/PublishNote';
+import PublishedNote from './note/PublishedNote';
 
 export default function EditNoteEditor({ id, note, setNote }) {
     const [icon, setIcon] = useState(note.icon)
@@ -119,7 +120,12 @@ export default function EditNoteEditor({ id, note, setNote }) {
                     </div>
                 </div>
                 <div>
-                    <PublishNote note={note} setNote={setNote}/>
+                    {
+                        note?.isPublish ?
+                            <PublishedNote note={note} setNote={setNote}/>
+                            :
+                            <PublishNote note={note} setNote={setNote} />
+                    }
                 </div>
             </div>
             <MenuBar editor={editor} />

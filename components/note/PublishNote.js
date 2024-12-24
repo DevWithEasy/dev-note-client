@@ -55,22 +55,11 @@ export default function PublishNote({ note,setNote }) {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button 
-                    className={`flex items-center py-1 text-left rounded-md ${note?.isPublish ? 'bg-gray-100 hover:bg-gray-200 text-black' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
+                    className={`flex items-center py-1 text-left rounded-md bg-blue-500 hover:bg-blue-600 text-white`}
                     onClick={() => setOpen(true)}
                 >
-                    {
-                        note?.isPublish? (
-                            <>
-                                <CircleCheck size={15} />
-                                <span className="text-sm">Published</span>
-                            </>
-                        ) : (
-                            <>
-                                <SendHorizontal size={15} />
-                                <span className="text-sm">Publish</span>
-                            </>
-                        )
-                    }
+                    <SendHorizontal size={15} />
+                    <span className="text-sm">Publish</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]" aria-describedby="dialog-publish">

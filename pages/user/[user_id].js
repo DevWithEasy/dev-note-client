@@ -1,33 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { TiDocumentAdd } from "react-icons/ti";
-import axios from 'axios';
-import { getAPIRequest } from '@/utils/getAPI';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import icons from '@/utils/icons';
-import Link from 'next/link';
-import CreateBookDailog from '@/components/book/CreateBookDailog';
-import { FilePenLine, Loader, Rows3 } from 'lucide-react';
-import useBookStore from '@/store/bookStore';
-import NoteAction from '@/components/note/NoteAction';
-import useUserStore from '@/store/userStore';
-import { Input } from '@/components/ui/input';
-import NavigationArea from '@/components/user/NavigationArea';
 import ContentArea from '@/components/user/ContentArea';
+import NavigationArea from '@/components/user/NavigationArea';
+import { NavigationSheet } from '@/components/user/NavigationSheet';
+import useBookStore from '@/store/bookStore';
+import { getAPIRequest } from '@/utils/getAPI';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { TiDocumentAdd } from "react-icons/ti";
 
 export default function Profile() {
   const router = useRouter()
   const { user_id } = router.query
-  const [mode, setMode] = useState('edit')
-  const { books, notes, setCollection, addNote, addBookNotes } = useBookStore()
-  const { user } = useUserStore()
+  const { setCollection, addBookNotes } = useBookStore()
   const [selectBook, setSelectBook] = useState({})
   const [loading, setLoading] = useState(false)
-
+  const [isOpen, setIsOpen] = useState(false)
   //get user document collection
   const getDocCollection = async (user_id) => {
     setSelectBook({})
     setLoading(true)
+    setIsOpen(false)
     try {
       const { data } = await axios.get(getAPIRequest(`/user/${user_id}`), {
         headers: {
@@ -45,6 +37,7 @@ export default function Profile() {
   const getBookNotes = async (book) => {
     setSelectBook(book)
     setLoading(true)
+    setIsOpen(false)
     try {
       const { data } = await axios.get(getAPIRequest(`/book/notes/${book._id}`), {
         headers: {
@@ -85,15 +78,36 @@ export default function Profile() {
     <div
       className='h-screen flex justify-between'
     >
-      <NavigationArea
-        selectBook={selectBook}
-        getBookNotes={getBookNotes}
-        getDocCollection={getDocCollection}
-      />
+      <div
+        className='hidden md:block w-2/12 border-r'
+      >
+        <NavigationArea
+          selectBook={selectBook}
+          getBookNotes={getBookNotes}
+          getDocCollection={getDocCollection}
+        />
+      </div>
+
       <ContentArea
         loading={loading}
         selectBook={selectBook}
-      />
+      >
+        <div
+          className='block md:hidden'
+        >
+          <NavigationSheet
+          isOpen = {isOpen}
+          setIsOpen={setIsOpen}
+          >
+          <NavigationArea
+            selectBook={selectBook}
+            getBookNotes={getBookNotes}
+            getDocCollection={getDocCollection}
+          />
+        </NavigationSheet>
+        </div>
+        
+      </ContentArea>
       {/* Floating Button */}
       <button
         onClick={createNewDocument}

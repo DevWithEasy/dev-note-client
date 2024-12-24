@@ -10,7 +10,7 @@ export default function NavigationArea({selectBook,getBookNotes,getDocCollection
     const { books } = useBookStore()
   return (
     <div
-        className='h-screen w-4/12 md:w-2/12 p-2 space-y-2 border-r'
+        className='h-screen w-full p-2 space-y-2'
       >
         <div
           className='h-24 flex flex-col items-center border-b text-sm'

@@ -41,7 +41,7 @@ export default function RenameNote({note}) {
             <DialogTrigger asChild>
                 <button className='w-full p-1 text-left bg-white hover:bg-gray-50 text-black rounded-md' onClick={() => setOpen(true)}>Rename</button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px]" aria-describedby="dialog-rename">
                 <DialogHeader>
                     <DialogTitle className='text-left'>Rename note</DialogTitle>
                 </DialogHeader>

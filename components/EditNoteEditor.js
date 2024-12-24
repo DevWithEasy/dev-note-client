@@ -10,8 +10,9 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { io } from "socket.io-client"
 import { Input } from './ui/input';
+import PublishNote from './note/PublishNote';
 
-export default function EditNoteEditor({ id, note,setNote }) {
+export default function EditNoteEditor({ id, note, setNote }) {
     const [icon, setIcon] = useState(note.icon)
     const [title, setTitle] = useState(note.title)
     const [description, setDescription] = useState(note.description)
@@ -21,7 +22,7 @@ export default function EditNoteEditor({ id, note,setNote }) {
 
     const titleHandler = (e) => {
         setTitle(e.target.value)
-        setNote({title : e.target.value,setDescription})
+        setNote({ title: e.target.value, setDescription })
         socket.emit('edit_title_api', { id, title: e.target.value })
     }
 
@@ -94,26 +95,32 @@ export default function EditNoteEditor({ id, note,setNote }) {
 
     return (
         <div className='h-screen overflow-y-hidden'>
-            <div className='h-12 p-2 flex items-center space-x-1'>
-                <div>
-                    <Image
-                        src={icons[icon]}
-                        alt='icon'
-                        height={25}
-                        width={25}
-                        onClick={() => setIconSelectView(true)}
-                        className='cursor-pointer'
-                    />
+            <div className='h-12 p-2 flex justify-between items-center space-x-1'>
+                <div
+                    className='flex items-center space-x-1'
+                >
+                    <div>
+                        <Image
+                            src={icons[icon]}
+                            alt='icon'
+                            height={25}
+                            width={25}
+                            onClick={() => setIconSelectView(true)}
+                            className='cursor-pointer'
+                        />
+                    </div>
+                    <div>
+                        <Input
+                            type='text'
+                            value={title}
+                            onChange={titleHandler}
+                            className='border-white focus:outline-none focus:border-gray-300'
+                        />
+                    </div>
                 </div>
                 <div>
-                    <Input
-                        type='text'
-                        value={title}
-                        onChange={titleHandler}
-                        className='border-white focus:outline-none focus:border-gray-300'
-                    />
+                    <PublishNote note={note} setNote={setNote}/>
                 </div>
-
             </div>
             <MenuBar editor={editor} />
             <div

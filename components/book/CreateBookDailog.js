@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import useBookStore from "@/store/bookStore";
 import { getAPIRequest } from "@/utils/getAPI";
 import axios from "axios";
-import { CircleFadingPlus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -43,9 +43,9 @@ export default function CreateBookDialog() {
                 <Button 
                     variant="outline" 
                     onClick={() => setOpen(true)} 
-                    className='w-full flex items-center justify-start'
+                    className='flex items-center justify-start'
                 >
-                    <CircleFadingPlus />
+                    <Plus />
                     <span>New Book</span>
                 </Button>
             </DialogTrigger>

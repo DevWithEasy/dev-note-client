@@ -7,17 +7,20 @@ import NoteAction from '../note/NoteAction'
 import icons from '@/utils/icons'
 import UpdateBook from '../book/UpdateBook'
 
-export default function ContentArea({loading,selectBook}) {
+export default function ContentArea({loading,selectBook,children}) {
     const [mode, setMode] = useState('edit')
     const { notes} = useBookStore()
   return (
     <div
-        className='h-screen w-8/12 md:w-10/12 p-2 space-y-2'
+        className='h-screen w-full md:w-10/12 p-2 space-y-2'
       >
         <div
-          className='h-10 flex justify-between items-center pr-4'
+          className='h-10 flex justify-between items-center'
         >
-          <div>
+          <div
+            className='flex space-x-2'
+          >
+            {children}
             {
               !selectBook._id ?
                 <h1>My Notes</h1>

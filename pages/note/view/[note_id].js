@@ -31,7 +31,6 @@ export default function ViewNote() {
         }
     }, [note_id])
 
-    console.log(note)
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <div
@@ -44,7 +43,7 @@ export default function ViewNote() {
                     className='h-screen md:w-8/12 mx-auto bg-white'
                 >
                     <div
-                        className='p-4 border-b-2'
+                        className='px-4 py-2 border-b-2 space-y-2 print:px-0'
                     >
                         <div
                             className='flex items-center space-x-2'
@@ -57,10 +56,10 @@ export default function ViewNote() {
                                 onClick={() => setIconSelectView(true)}
                                 className='cursor-pointer'
                             />
-                            <h1 className='font-bold text-xl'>{note?.title}</h1>
+                            <h1 className='font-bold text-lg'>{note?.title}</h1>
                         </div>
                         <div
-                            className=''
+                            className='text-sm'
                         >
                             <p>Created By : {note?.user?.name}</p>
                             <p>Created At : {new Date(note?.createdAt).toDateString()}</p>
@@ -68,7 +67,7 @@ export default function ViewNote() {
                     </div>
                     <div
                         dangerouslySetInnerHTML={{ __html: note?.description }}
-                        className='p-4 tiptap'
+                        className='p-4 tiptap print:px-0'
                     ></div>
                 </div>
             </div>

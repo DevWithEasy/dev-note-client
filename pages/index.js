@@ -1,4 +1,5 @@
-import Header from "@/components/Header";
+import Layout from "@/components/Layout";
+import NoteNavLink from "@/components/NoteNavLink";
 import { getAPIRequest } from "@/utils/getAPI";
 import icons from "@/utils/icons";
 import axios from "axios";
@@ -9,83 +10,24 @@ import Link from "next/link";
 export default function Home({ notes, keywords }) {
   // console.log(notes);
   return (
-    <div
-      className="h-screen"
-    >
-      <Header />
+    <Layout>
       <div
-        className="h-[calc(100%-48px)] md:w-9/12 mx-auto flex justify-between overflow-y-auto"
+        className="h-full md:w-9/12 mx-auto flex justify-between"
       >
         <div
-          className="h-full w-8/12 p-2 overflow-y-auto border-r"
+          className="h-full w-full md:w-8/12 p-2 overflow-y-auto md:border-r"
         >
           {
             notes.map(note => (
-              <Link
+              <NoteNavLink
                 key={note._id}
-                href={`/note/view/${note._id}`}
-              >
-                <div
-                  className="p-1 mb-2 flex space-x-2 border rounded"
-                >
-                  <div>
-                    <Image
-                      src={icons[note.icon]}
-                      alt={note.icon}
-                      height={25}
-                      width={30}
-                    />
-                  </div>
-                  <div
-                    className="w-full space-y-1"
-                  >
-                    <h3 className="font-medium">{note.title}</h3>
-                    <div
-                    className="flex space-x-2 pb-1 text-gray-400"
-                    >
-                      <div
-                        className="flex items-center space-x-1"
-                      >
-                        <CircleUserRound size={16}/>
-                        <span
-                          className="text-xs"
-                        >
-                          {note?.user?.name}
-                        </span>
-                      </div>
-                      <div
-                        className="flex items-center space-x-1"
-                      >
-                        <CalendarDays size={14}/>
-                                              <span
-                        className="text-xs"
-                      >
-                        {new Date(note?.createdAt).toDateString()}
-                      </span>
-                      </div>
-                    </div>
-                    <div
-                      className="flex flex-wrap space-x-1"
-                    >
-                      {
-                        note.keywords.map(key => (
-                          <span
-                            key={key}
-                            className="px-2 py-0.5 text-xs bg-gray-100 text-gray-500 rounded-full"
-                          >
-                            {key}
-                          </span>
-                        ))
-                      }
-                    </div>
-                  </div>
-                </div>
-              </Link>
+                note={note}
+              />
             ))
           }
         </div>
         <div
-          className="h-full w-4/12 overflow-y-auto"
+          className="h-full hidden md:block md:w-4/12 overflow-y-auto"
         >
           <div
             className="p-2 space-y-3"
@@ -112,7 +54,7 @@ export default function Home({ notes, keywords }) {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 export async function getServerSideProps() {

@@ -15,7 +15,7 @@ export default function ContentArea({loading,selectBook,setSelectBook,children})
         className='h-screen w-full md:w-10/12 p-2 space-y-2'
       >
         <div
-          className='h-10 flex justify-between items-center'
+          className='h-10 flex justify-between items-center border-b'
         >
           <div
             className='flex space-x-2'

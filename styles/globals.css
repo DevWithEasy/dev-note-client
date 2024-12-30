@@ -89,17 +89,13 @@
 
   /* Code and preformatted text styles */
   code {
-    @apply bg-slate-200 rounded text-[0.85rem] px-[0.25em] py-[0.3em] font-code;
+    @apply bg-gray-100 rounded text-[0.85rem] px-[0.25em] py-[0.3em] font-code;
   }
 
   pre {
-    @apply bg-gray-100 border text-black rounded-md my-2 p-2 ;
+    @apply bg-gray-100 border print:border-gray-500 text-black rounded-md my-2 p-2 ;
     code {
-      background: none;
-      font-family: 'monaspace-code';
-      color: inherit;
-      font-size: 0.8rem;
-      padding: 0;
+      @apply bg-gray-100 font-code font-[0.8rem] p-0;
     }
   }
 

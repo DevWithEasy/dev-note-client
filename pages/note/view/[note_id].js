@@ -34,13 +34,13 @@ export default function ViewNote() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <div
-                className='h-screen bg-gray-50'
+                className='h-screen print:h-auto bg-gray-50'
             >
                 <Head>
                     <title>{note?.title ? note?.title : 'Loading...'}</title>
                 </Head>
                 <div
-                    className='h-screen md:w-8/12 mx-auto bg-white overflow-y-auto'
+                    className='h-screen print:h-auto md:w-8/12 mx-auto bg-white overflow-y-auto'
                 >
                     <div
                         className='px-4 py-2 border-b-2 space-y-2 print:px-0'

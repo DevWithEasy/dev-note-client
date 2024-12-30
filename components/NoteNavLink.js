@@ -14,7 +14,7 @@ export default function NoteNavLink({ note }) {
                     src={icons[note.icon]}
                     alt={note.icon}
                     height={25}
-                    width={30}
+                    width={25}
                 />
             </div>
             <div
